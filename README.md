@@ -26,4 +26,26 @@
 >>>>### 店铺管理
 >>>>### 用户管理
 # 实体类分析与设计
-![实体类分析图](https://github.com/3218870799/-CampusShop/blob/master/src/readImages/domain.png)
+![实体类分析图](https://github.com/3218870799/-CampusShop/blob/master/src/readImages/entity.png)
+<br>
+### 区域实体类
+![区域实体类分析图](https://github.com/3218870799/-CampusShop/blob/master/src/readImages/AreaEntity.png)
+<br>
+### 用户信息实体类
+![用户信息实体类分析图](https://github.com/3218870799/-CampusShop/blob/master/src/readImages/PersonInfoEntity.png)
+<br>
+### 头条实体类
+![头条实体类分析图](https://github.com/3218870799/-CampusShop/blob/master/src/readImages/HeadLine.png)
+<br>
+### 账户实体类
+![账户实体类分析图](https://github.com/3218870799/-CampusShop/blob/master/src/readImages/Auth.png)
+<br>
+### 店铺类别实体类
+![店铺类别实体类分析图](https://github.com/3218870799/-CampusShop/blob/master/src/readImages/shopCategory.png)
+<br>
+### 店铺实体类
+![店铺实体类分析图](https://github.com/3218870799/-CampusShop/blob/master/src/readImages/shop.png)
+<br>
+### 商品实体类
+![商品实体类分析图](https://github.com/3218870799/-CampusShop/blob/master/src/readImages/product.png)
+<br>
