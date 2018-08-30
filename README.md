@@ -44,7 +44,7 @@
 ![店铺类别实体类分析图](https://github.com/3218870799/-CampusShop/blob/master/src/readImages/shopCategory.png)
 <br>
 ### 店铺实体类
-![店铺实体类分析图](https://github.com/3218870799/-CampusShop/blob/master/src/readImages/shop.png)
+![店铺实体类分析图](https://github.com/3218870799/-CampusShop/blob/master/src/readImages/shop.jpg)
 <br>
 ### 商品实体类
 ![商品实体类分析图](https://github.com/3218870799/-CampusShop/blob/master/src/readImages/product.png)
