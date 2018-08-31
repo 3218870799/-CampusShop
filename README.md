@@ -49,3 +49,8 @@
 ### 商品实体类
 ![商品实体类分析图](https://github.com/3218870799/-CampusShop/blob/master/src/readImages/product.png)
 <br>
+# 系统实现知识
+>>## SpringMVC : DispatcherServlet
+>>## Spring : IOC和AOP
+>>## Mybatis : ORM
+>>## Logback日志: 
