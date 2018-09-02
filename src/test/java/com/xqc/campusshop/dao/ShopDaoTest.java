@@ -21,6 +21,15 @@ import com.xqc.campusshop.entity.ShopCategory;
 public class ShopDaoTest extends BaseTest {
 	@Autowired
 	private ShopDao shopDao;
+	
+	@Test
+	public void testQueryByShopId() throws Exception {
+		long shopId = 29;
+		Shop shop = shopDao.queryByShopId(shopId);
+		System.out.println(shop);
+	}
+	
+	
 
 	@Test
 	@Ignore
@@ -52,6 +61,7 @@ public class ShopDaoTest extends BaseTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testUpdatetShop() throws Exception {
 		Shop shop = new Shop();
 		shop.setShopId(29L);
