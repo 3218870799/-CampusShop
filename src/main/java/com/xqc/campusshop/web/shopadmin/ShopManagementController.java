@@ -1,6 +1,8 @@
 package com.xqc.campusshop.web.shopadmin;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +18,13 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xqc.campusshop.dto.ShopExecution;
+import com.xqc.campusshop.entity.Area;
 import com.xqc.campusshop.entity.PersonInfo;
 import com.xqc.campusshop.entity.Shop;
+import com.xqc.campusshop.entity.ShopCategory;
 import com.xqc.campusshop.enums.ShopStateEnum;
+import com.xqc.campusshop.service.AreaService;
+import com.xqc.campusshop.service.ShopCategoryService;
 import com.xqc.campusshop.service.ShopService;
 import com.xqc.campusshop.util.HttpServletRequestUtil;
 
@@ -28,6 +34,12 @@ public class ShopManagementController {
 	
 	@Autowired
 	private ShopService shopService;
+	
+	@Autowired
+	private ShopCategoryService shopCategoryService;
+	
+	@Autowired
+	private AreaService areaService;
 	
 	@RequestMapping(value="/registershop",method = RequestMethod.POST)
 	@ResponseBody
@@ -90,5 +102,44 @@ public class ShopManagementController {
 		return modelMap;
 		
 	}
+	
+	@RequestMapping(value="/getshopinitinfo",method=RequestMethod.GET)
+	@ResponseBody
+	private Map<String,Object> getShopIninInfo(){
+		
+		Map<String,Object> modelMap = new HashMap<String,Object>();
+		List<ShopCategory> shopCategoryList = new ArrayList<ShopCategory>();
+		List<Area> areaList = new ArrayList<Area>();
+		
+		try{
+			shopCategoryList = shopCategoryService.getShopCategoryList(new ShopCategory());
+			areaList = areaService.getAreaList();
+			
+			modelMap.put("shopCategoryList", shopCategoryList);
+			modelMap.put("areaList", areaList);
+			modelMap.put("success", true);
+		}catch(Exception e){
+			modelMap.put("succsee", false);
+			modelMap.put("errMsg", e.getMessage());
+		}
+				
+		return modelMap;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

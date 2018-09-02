@@ -2,26 +2,25 @@
  * 
  */
 	$(function(){
-		
-		alert("加载js完成");
-		
 		var initUrl = '/CampusShop/shopadmin/getshopinitinfo';
 		var registerShopUrl ='/CampusShop/shopadmin/registershop';
-		
-		alert(initUrl);
 		getShopInitInfo();
-		
 		function getShopInitInfo(){
 			$.getJSON(initUrl,function(data){
 				if(data.success){
 					var tempHtml = '';
 					var tempAreaHtml = '';
+
 					data.shopCategoryList.map(function(item,index){
-						temoHtml+='<option data-id="'+item.shopCategoryId +'">'
-						+item.shopCategroryName +'</option>';
+				
+						tempHtml+='<option data-id="'+item.shopCategoryId +'">'
+						+item.shopCategoryName +'</option>';
+
 					});
+					
+
 					data.areaList.map(function(item,index){
-						temoAreaHtml+='<option data-id="'+item.areaId +'">'
+						tempAreaHtml+='<option data-id="'+item.areaId +'">'
 						+item.areaName +'</option>';
 					});
 					$('#shop-category').html(tempHtml);
