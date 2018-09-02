@@ -30,6 +30,15 @@ public interface ShopDao {
 	int updateShop(Shop shop);
 	
 	/**
+	 * 通过owner id 查询店铺
+	 * 
+	 * @param shopId
+	 * @return shop
+	 */
+	Shop queryByShopId(long shopId);
+	
+	
+	/**
 	 * 分页查询店铺,可输入的条件有：店铺名（模糊），店铺状态，店铺Id,店铺类别,区域ID
 	 * 
 	 * @param shopCondition
@@ -55,16 +64,6 @@ public interface ShopDao {
 	 * @return List<shop>
 	 */
 	List<Shop> queryByEmployeeId(long employeeId);
-
-	/**
-	 * 通过owner id 查询店铺
-	 * 
-	 * @param shopId
-	 * @return shop
-	 */
-	Shop queryByShopId(long shopId);
-
-
 
 	/**
 	 * 删除店铺（初版，即只支持删除尚且没有发布商品的店铺）
