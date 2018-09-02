@@ -1,5 +1,6 @@
 package com.xqc.campusshop.util;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -52,5 +53,24 @@ public class FileUtil {
 		String headLineImagePath = "/upload/images/item/headtitle/";
 		headLineImagePath = headLineImagePath.replace("/", seperator);
 		return headLineImagePath;
+	}
+	
+	/**
+	 * 修改时删除图片
+	 * 如果是文件则直接删除
+	 * 如果是目录，则直接删除目录下所有的文件
+	 * @param storePath
+	 */
+	public static void deleteFile(String storePath) {
+		File file = new File(getImgBasePath() + storePath);
+		if (file.exists()) {
+			if (file.isDirectory()) {
+				File files[] = file.listFiles();
+				for (int i = 0; i < files.length; i++) {
+					files[i].delete();
+				}
+			}
+			file.delete();
+		}
 	}
 }
