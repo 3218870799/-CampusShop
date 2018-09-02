@@ -127,7 +127,7 @@ public class ShopManagementController {
 			modelMap.put("areaList", areaList);
 			modelMap.put("success", true);
 		}catch(Exception e){
-			modelMap.put("succsee", false);
+			modelMap.put("success", false);
 			modelMap.put("errMsg", e.getMessage());
 		}
 				

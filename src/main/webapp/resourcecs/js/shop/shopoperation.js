@@ -65,7 +65,7 @@
 					type:'POST',
 					data:formData,
 					contentType:false,
-					proceesData:false,
+					processData:false,
 					cache:false,
 					success:function(data){
 						if(data.success){
