@@ -26,6 +26,7 @@ import com.xqc.campusshop.enums.ShopStateEnum;
 import com.xqc.campusshop.service.AreaService;
 import com.xqc.campusshop.service.ShopCategoryService;
 import com.xqc.campusshop.service.ShopService;
+import com.xqc.campusshop.util.CodeUtil;
 import com.xqc.campusshop.util.HttpServletRequestUtil;
 
 @Controller
@@ -45,6 +46,13 @@ public class ShopManagementController {
 	@ResponseBody
 	private Map<String,Object> registerShop(HttpServletRequest request){
 		Map<String,Object> modelMap = new HashMap<String,Object>();
+		
+		//验证验证
+		if(!CodeUtil.checkVerifyCode(request)){
+			modelMap.put("success",false);
+			modelMap.put("errMsg","输入了错误的验证码");
+			return modelMap;
+		}
 		
 		//1。接受并转化相应的参数，包括店铺信息以及图片信息
 		//获取约定好的shopStr
