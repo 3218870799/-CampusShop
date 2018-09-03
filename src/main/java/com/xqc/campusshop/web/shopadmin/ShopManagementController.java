@@ -42,6 +42,11 @@ public class ShopManagementController {
 	@Autowired
 	private AreaService areaService;
 	
+	/**
+	 * 店铺注册
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/registershop",method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String,Object> registerShop(HttpServletRequest request){
@@ -82,18 +87,25 @@ public class ShopManagementController {
 		}
 		//2.注册店铺，尽量减少用户输入
 		if(shop!= null&& shopImg!=null){
-			PersonInfo owner = new PersonInfo();
-			
 			//Session To do
+			//user由登陆时传入
+//			PersonInfo owner = (PersonInfo) request.getSession().getAttribute("user");
+			
+			PersonInfo owner = new PersonInfo();
 			owner.setUserId(12L);
-			
-			//
-			
-			 
+
 			shop.setOwner(owner);
 			ShopExecution se = shopService.addShop(shop, shopImg);
 			if(se.getState() == ShopStateEnum.CHECK.getState()){
 				modelMap.put("success", true);
+				//如果店铺创建成功，将店铺保存在Session中,取出该用户可以操作的店铺列表
+/*				@SuppressWarnings("unchecked")
+				List<Shop> shopList = (List<Shop>) request.getSession().getAttribute("shopList");
+				if(shopList == null||shopList.size()==0){
+					shopList = new ArrayList<Shop>();
+				}
+				shopList.add(se.getShop());
+				request.getSession().setAttribute("shopList", shopList);*/
 			}else{
 				modelMap.put("success", false);
 				modelMap.put("errMsg",se.getStateInfo());
@@ -111,6 +123,10 @@ public class ShopManagementController {
 		
 	}
 	
+	/**
+	 * 获取店铺初始信息
+	 * @return
+	 */
 	@RequestMapping(value="/getshopinitinfo",method=RequestMethod.GET)
 	@ResponseBody
 	private Map<String,Object> getShopIninInfo(){
@@ -135,8 +151,42 @@ public class ShopManagementController {
 		
 	}
 	
+	/**
+	 * 由Id获取店铺信息
+	 * id由HttpServletRequestUtil进行处理
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/getshopbyid", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> getShopById(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		//获取shopId
+		Long shopId = HttpServletRequestUtil.getLong(request, "shopId");
+		//前端已经传入
+		if (shopId != null && shopId > -1) {
+			try {
+				//获取Shop
+				Shop shop = shopService.getByShopId(shopId);
+				//获取区域列表
+				List<Area> areaList = areaService.getAreaList();
+				
+				modelMap.put("shop", shop);
+				modelMap.put("areaList", areaList);
+				modelMap.put("success", true);
+				
+			} catch (Exception e) {
+				modelMap.put("success", false);
+				modelMap.put("errMsg", e.toString());
+			}
+		} else {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", "empty shopId");
+		}
+		return modelMap;
+	}
 	
-	
+
 	
 	
 	
