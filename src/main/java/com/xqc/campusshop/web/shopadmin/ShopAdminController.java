@@ -18,5 +18,19 @@ public class ShopAdminController {
 		return "shop/shopoperation";
 	}
 	
+	@RequestMapping(value = "/shoplist", method = RequestMethod.GET)
+	public String myList() {
+		return "shop/shoplist";
+	}
+	@RequestMapping(value = "/shopmanagement")
+	private String shopManageMent() {
+		return "shop/shopmanagement";
+
+	}
+	@RequestMapping(value = "/changepsw", method = RequestMethod.GET)
+	private String changePsw() {
+		return "shop/changepsw";
+	}
+	
 
 }

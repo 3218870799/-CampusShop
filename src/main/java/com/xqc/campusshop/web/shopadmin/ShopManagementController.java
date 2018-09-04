@@ -266,6 +266,11 @@ public class ShopManagementController {
 		}		
 	}
 	
+	/**
+	 * 获取某人名下的店铺列表
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/getshoplist",method=RequestMethod.GET)
 	@ResponseBody
 	private Map<String,Object> getShopList(HttpServletRequest request){
@@ -291,5 +296,39 @@ public class ShopManagementController {
 		}
 		return modelMap;
 	}
+	
+	/**
+	 * 如非登陆访问则重定向，登陆则在session中获取店铺id
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/getshopmanagementinfo",method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String,Object> getShopManagementInfo(HttpServletRequest request){
+		Map<String,Object> modelMap = new HashMap<String,Object>();
+		long shopId = HttpServletRequestUtil.getLong(request,"shopId");
+		if(shopId<=0){
+			//从Session总获取shopId
+			Object currentShopObj = request.getSession().getAttribute("currentShop");
+			if(currentShopObj==null){
+				//如果还是获取不到，则重定向回前一个页面
+				modelMap.put("redirect", true);
+				//重定向到前一页面
+				modelMap.put("url", "/CampusShop/shop/shoplist");
+			}else{
+				//从currentShop中获取ShopId
+				Shop currentShop = (Shop) currentShopObj;
+				modelMap.put("redirect", false);
+				modelMap.put("shopId", currentShop.getShopId());
+			}
+		}else{
+			Shop currentShop = new Shop();
+			currentShop.setShopId(shopId);
+			request.getSession().setAttribute("currentShop",currentShop);
+			modelMap.put("redirect", false);
+		}
+		return modelMap;
+	}
+
 
 }
