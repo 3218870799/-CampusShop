@@ -1,6 +1,7 @@
 package com.xqc.campusshop.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import com.xqc.campusshop.exceptions.ShopOperationException;
 import com.xqc.campusshop.service.ShopService;
 import com.xqc.campusshop.util.FileUtil;
 import com.xqc.campusshop.util.ImageUtil;
+import com.xqc.campusshop.util.PageCalculator;
 
 
 /**
@@ -114,6 +116,27 @@ public class ShopServiceImpl implements ShopService {
 						+ e.getMessage());
 			}
 		}
+	}
+
+	
+	@Override
+	public ShopExecution getShopList(Shop shopCondition, int pageIndex, int pageSize) {
+		// TODO Auto-generated method stub
+		//转换
+		int rowIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
+		//返回需要的列表
+		List<Shop> shopList = shopDao.queryShopList(shopCondition, rowIndex, pageSize);
+		//获取总数
+		int count = shopDao.queryShopCount(shopCondition);
+		//返回后的dto
+		ShopExecution se = new ShopExecution();
+		if(shopList!=null){
+			se.setShopList(shopList);
+			se.setCount(count);
+		}else{
+			se.setState(ShopStateEnum.INNER_ERROR.getState());
+		}
+		return se;
 	}
 
 

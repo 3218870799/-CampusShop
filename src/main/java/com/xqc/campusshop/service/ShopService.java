@@ -13,7 +13,7 @@ import com.xqc.campusshop.entity.Shop;
 public interface ShopService {
 		
 	/**
-	 * 
+	 * 注册店铺
 	 * @param shop
 	 * @param shopImg
 	 * @return
@@ -42,4 +42,15 @@ public interface ShopService {
 	 * @throws RuntimeException
 	 */
 	ShopExecution modifyShop(Shop shop, CommonsMultipartFile shopImg) throws RuntimeException;
+
+	/**
+	 * 根据shopCondition分页返回相应列表数据
+	 * @param shopCondition
+	 * @param pageIndex对应Dao层的rowIndex，使用pageCalculator转换
+	 * @param pageSize
+	 * @return
+	 */
+	ShopExecution getShopList(Shop shopCondition,int pageIndex,int pageSize);
+	
+	 
 }
