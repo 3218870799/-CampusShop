@@ -302,7 +302,7 @@ public class ShopManagementController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="/getshopmanagementinfo",method = RequestMethod.GET)
+/*	@RequestMapping(value="/getshopmanagementinfo",method = RequestMethod.GET)
 	@ResponseBody
 	private Map<String,Object> getShopManagementInfo(HttpServletRequest request){
 		Map<String,Object> modelMap = new HashMap<String,Object>();
@@ -328,6 +328,26 @@ public class ShopManagementController {
 			modelMap.put("redirect", false);
 		}
 		return modelMap;
+	}*/
+	
+	@RequestMapping(value = "/shopmanage", method = RequestMethod.GET)
+	@ResponseBody
+	private String shopManage(HttpServletRequest request) {
+		long shopId = HttpServletRequestUtil.getLong(request, "shopId");
+		if (shopId <= 0) {
+			Object currentShopObj = request.getSession().getAttribute(
+					"currentShop");
+			if (currentShopObj == null) {
+				return "shop/shoplist";
+			} else {
+				return "shop/shopmanage";
+			}
+		} else {
+			Shop currentShop = new Shop();
+			currentShop.setShopId(shopId);
+			request.getSession().setAttribute("currentShop", currentShop);
+			return "shop/shopmanage";
+		}
 	}
 
 
