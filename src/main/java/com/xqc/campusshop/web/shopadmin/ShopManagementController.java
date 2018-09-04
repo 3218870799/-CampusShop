@@ -266,16 +266,30 @@ public class ShopManagementController {
 		}		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@RequestMapping(value="/getshoplist",method=RequestMethod.GET)
+	@ResponseBody
+	private Map<String,Object> getShopList(HttpServletRequest request){
+		
+		Map<String,Object> modelMap = new HashMap<String,Object>();
+		PersonInfo user = new PersonInfo();
+		//TODO
+		user.setUserId(12L);
+		
+		request.getSession().setAttribute("user", user);
+		user=(PersonInfo) request.getSession().getAttribute("user");
+		
+		try{
+			Shop shopCondition = new Shop();
+			shopCondition.setOwner(user);
+			ShopExecution se = shopService.getShopList(shopCondition, 0, 100);
+			modelMap.put("shopList", se.getShopList());
+			modelMap.put("user", user);
+			modelMap.put("success",true);
+		}catch (Exception e) {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", e.getMessage());
+		}
+		return modelMap;
+	}
 
 }
