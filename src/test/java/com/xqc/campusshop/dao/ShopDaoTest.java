@@ -3,6 +3,7 @@ package com.xqc.campusshop.dao;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
@@ -23,14 +24,25 @@ public class ShopDaoTest extends BaseTest {
 	private ShopDao shopDao;
 	
 	@Test
+	public void testQueryShopList() throws Exception {
+		
+		Shop shopCondition = new Shop();
+		PersonInfo owner = new PersonInfo();
+		owner.setUserId(12L);
+		shopCondition.setOwner(owner);
+		List<Shop> shopList = shopDao.queryShopList(shopCondition, 0, 1);
+		
+		System.out.println(shopList.size());
+	}
+	
+	@Test
+	@Ignore
 	public void testQueryByShopId() throws Exception {
 		long shopId = 29;
 		Shop shop = shopDao.queryByShopId(shopId);
 		System.out.println(shop);
 	}
 	
-	
-
 	@Test
 	@Ignore
 	public void testInsertShop() throws Exception {
