@@ -24,7 +24,7 @@ public class ShopAdminController {
 	}
 	@RequestMapping(value = "/shopmanagement")
 	private String shopManageMent() {
-		return "shop/shopmanagement";
+		return "shop/shopmanage";
 
 	}
 	@RequestMapping(value = "/changepsw", method = RequestMethod.GET)
