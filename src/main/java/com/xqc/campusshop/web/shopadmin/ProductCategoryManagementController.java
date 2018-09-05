@@ -1,0 +1,95 @@
+package com.xqc.campusshop.web.shopadmin;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.xqc.campusshop.dto.Result;
+import com.xqc.campusshop.entity.ProductCategory;
+import com.xqc.campusshop.entity.Shop;
+import com.xqc.campusshop.enums.ProductCategoryStateEnum;
+import com.xqc.campusshop.service.ProductCategoryService;
+
+/**
+ * 商品类别管理Controller层
+ * 
+ * @author A Cang（xqc）
+ *
+ */
+@Controller
+@RequestMapping("shopadmin")
+public class ProductCategoryManagementController {
+
+	@Autowired
+	ProductCategoryService productCategoryService; 
+	
+/*	@RequestMapping(value = "/getproductcategorylist", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> getProductCategoryList(
+			HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		Shop shop = new Shop();
+		shop.setShopId(29L);
+		
+		request.getSession().setAttribute("currentShop", shop);
+		
+		Shop currentShop = (Shop) request.getSession().getAttribute(
+				"currentShop");
+		if ((currentShop != null) && (currentShop.getShopId() != null)) {
+			List<ProductCategory> productCategoryList = productCategoryService
+					.getProductCategoryList(currentShop.getShopId());
+			modelMap.put("productCategoryList", productCategoryList);
+			modelMap.put("success", true);
+		} else {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", "empty pageSize or pageIndex or shopId");
+		}
+		return modelMap;
+	}*/
+	
+	@RequestMapping(value = "/getproductcategorylist", method = RequestMethod.GET)
+	@ResponseBody
+	private Result<List<ProductCategory>> getProductCategoryList(HttpServletRequest request){
+		
+		//TODO
+		Shop shop = new Shop();
+		shop.setShopId(29L);
+		
+		request.getSession().setAttribute("currentShop", shop);
+		
+		Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");
+		List<ProductCategory> list = null;
+		if(currentShop!=null&& currentShop.getShopId()>0){
+			list=productCategoryService.getProductCategoryList(currentShop.getShopId());
+			return new Result<List<ProductCategory>>(true,list);
+		}else{
+			ProductCategoryStateEnum ps = ProductCategoryStateEnum.INNER_ERROR;
+			return new Result<List<ProductCategory>>(false,ps.getState(),ps.getStateInfo());
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
