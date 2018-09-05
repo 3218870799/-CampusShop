@@ -18,5 +18,28 @@
 		ORDER BY 
 		priority DESC
 	</select>
+	<insert id="batchInsertProductCategory" parameterType="java.util.List">
+	<!-- 使用id自增有时需要返回最新插入的id -->
+		<selectKey resultType="Long" keyProperty="product_category_id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO
+		tb_product_category(
+		product_category_name,
+		priority,
+		create_time,
+		shop_id)
+		VALUES
+		<foreach collection="list" item="productCategory" index="index"
+			separator=",">
+			(
+			#{productCategory.productCategoryName},
+			#{productCategory.priority},
+			#{productCategory.createTime},
+			#{productCategory.shopId}
+			)
+		</foreach>
+	</insert>
 
 </mapper>
