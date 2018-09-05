@@ -32,5 +32,10 @@ public class ShopAdminController {
 		return "shop/changepsw";
 	}
 	
+	@RequestMapping(value = "/productcategorymanage", method = RequestMethod.GET)
+	private String productCategoryManage(){
+		return "shop/productcategorymanage";
+	}
+	
 
 }
