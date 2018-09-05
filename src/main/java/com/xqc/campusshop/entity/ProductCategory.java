@@ -2,14 +2,17 @@ package com.xqc.campusshop.entity;
 
 import java.util.Date;
 
+/**
+ * 商品类别实体类
+ * @author A Cang（xqc）
+ *
+ */
 public class ProductCategory {
 	private Long productCategoryId;
-	private Long shopId;
 	private String productCategoryName;
-	private String productCategoryDesc;
 	private Integer priority;
 	private Date createTime;
-	private Date lastEditTime;
+	private Long shopId;
 
 	public Long getProductCategoryId() {
 		return productCategoryId;
@@ -35,14 +38,6 @@ public class ProductCategory {
 		this.productCategoryName = productCategoryName;
 	}
 
-	public String getProductCategoryDesc() {
-		return productCategoryDesc;
-	}
-
-	public void setProductCategoryDesc(String productCategoryDesc) {
-		this.productCategoryDesc = productCategoryDesc;
-	}
-
 	public Integer getPriority() {
 		return priority;
 	}
@@ -57,14 +52,6 @@ public class ProductCategory {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
-	}
-
-	public Date getLastEditTime() {
-		return lastEditTime;
-	}
-
-	public void setLastEditTime(Date lastEditTime) {
-		this.lastEditTime = lastEditTime;
 	}
 
 	public String toString() {

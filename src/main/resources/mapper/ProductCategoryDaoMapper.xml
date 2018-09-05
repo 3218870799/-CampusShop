@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xqc.campusshop.dao.ProductCategoryDao">
+	<!-- resultType为返回类型，如果是多种可以用map,parameterType为接收参数类型 -->
+	<select id="queryByShopId" resultType="com.xqc.campusshop.entity.ProductCategory" parameterType="Long">
+		SELECT
+		product_category_id,
+		product_category_name,
+		priority,
+		create_time,
+		shop_id
+		FROM
+		tb_product_category
+		WHERE
+		shop_id=#{shopId}
+	</select>
+
+</mapper>
