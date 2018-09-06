@@ -27,5 +27,15 @@ public interface ProductCategoryService {
 	 */
 	ProductCategoryExecution batchAddProductCategory(
 			List<ProductCategory> productCategoryList) throws RuntimeException;
+	
+	/**
+	 * 删除产品类别，如果商品类别下有商品则清空
+	 * @param productCategoryId
+	 * @param shopId
+	 * @return
+	 * @throws RuntimeException
+	 */
+	ProductCategoryExecution deleteProductCategory(long productCategoryId,
+			long shopId) throws RuntimeException;
 
 }
