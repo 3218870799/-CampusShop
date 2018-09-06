@@ -2,6 +2,7 @@ package com.xqc.campusshop.service;
 
 import java.util.List;
 
+import com.xqc.campusshop.dto.ProductCategoryExecution;
 import com.xqc.campusshop.entity.ProductCategory;
 
 /**
@@ -17,5 +18,14 @@ public interface ProductCategoryService {
 	 * @return
 	 */
 	List<ProductCategory> getProductCategoryList(long shopId);
+	
+	/**
+	 * 批量添加商品类别
+	 * @param productCategoryList
+	 * @return
+	 * @throws RuntimeException
+	 */
+	ProductCategoryExecution batchAddProductCategory(
+			List<ProductCategory> productCategoryList) throws RuntimeException;
 
 }
