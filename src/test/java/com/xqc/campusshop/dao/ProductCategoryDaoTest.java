@@ -29,6 +29,7 @@ public class ProductCategoryDaoTest extends BaseTest{
 	}
 	
 	@Test
+	@Ignore
 	public void testInsertProductCategory() throws Exception {
 		ProductCategory productCategory = new ProductCategory();
 		productCategory.setProductCategoryName("商品类别1");
@@ -47,4 +48,16 @@ public class ProductCategoryDaoTest extends BaseTest{
 				.batchInsertProductCategory(productCategoryList);
 		assertEquals(2, effectedNum);
 	}
+	
+	@Test
+	public void testDeleteProductCategory(){
+		long shopId = 29;
+		List<ProductCategory> productCategoryList = productCategoryDao
+				.queryByShopId(shopId);
+		int effectedNum = productCategoryDao.deleteProductCategory(
+				productCategoryList.get(0).getProductCategoryId(), shopId);
+		assertEquals(1, effectedNum);
+	}
+		
+	
 }
