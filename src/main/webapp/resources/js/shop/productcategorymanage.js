@@ -74,7 +74,7 @@ $(function() {
 	$('.category-wrap').on('click', '.row-product-category.now .delete',
 			function(e) {
 				var target = e.currentTarget;
-				$.confirm('确定么?', function() {
+				$.confirm('确定删除?', function() {
 					$.ajax({
 						url : deleteUrl,
 						type : 'POST',
