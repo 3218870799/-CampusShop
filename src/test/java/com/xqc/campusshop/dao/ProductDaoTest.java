@@ -1,7 +1,11 @@
 package com.xqc.campusshop.dao;
 
-import java.util.Date;
+import static org.junit.Assert.assertEquals;
 
+import java.util.Date;
+import java.util.List;
+
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,6 +20,7 @@ public class ProductDaoTest extends BaseTest{
 	private ProductDao productDao;
 	
 	@Test
+	@Ignore
 	public void testInsertProduct() throws Exception {
 		Shop shop1 = new Shop();
 		shop1.setShopId(29L);
@@ -37,5 +42,21 @@ public class ProductDaoTest extends BaseTest{
 		productDao.insertProduct(product1);
 
 	}
+	
+	@Test
+	public void testQueryProductList() throws Exception {
+		Product product = new Product();
+		List<Product> productList = productDao.queryProductList(product, 0, 3);
+		assertEquals(3, productList.size());
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
