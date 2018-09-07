@@ -2,6 +2,11 @@ package com.xqc.campusshop.entity;
 
 import java.util.Date;
 
+/**
+ * 商品图片实体类
+ * @author A Cang（xqc）
+ *
+ */
 public class ProductImg {
 	private Long productImgId;
 	private String imgAddr;
