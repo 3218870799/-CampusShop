@@ -3,22 +3,26 @@ package com.xqc.campusshop.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
+/**
+ * 商品实体类
+ * @author A Cang（xqc）
+ *
+ */
 public class Product implements Serializable{
 	
 	private static final long serialVersionUID = -349433539553804024L;
 	private Long productId;
 	private String productName;
 	private String productDesc;
-	private String imgAddr;// 简略图
+	// 简略图
+	private String imgAddr;
 	private String normalPrice;
 	private String promotionPrice;
 	private Integer priority;
 	private Date createTime;
 	private Date lastEditTime;
+	//0表示下架，1表示在前端展示系统展示
 	private Integer enableStatus;
-	//
-	//private Integer point;
 
 	private List<ProductImg> productImgList;
 	private ProductCategory productCategory;
