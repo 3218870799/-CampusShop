@@ -133,4 +133,6 @@ public class Product implements Serializable{
 		this.shop = shop;
 	}
 
+	
+
 }

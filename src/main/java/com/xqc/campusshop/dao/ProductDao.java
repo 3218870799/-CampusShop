@@ -33,5 +33,6 @@ public interface ProductDao {
 	 */
 	int insertProduct(Product product);
 	
+	
 
 }
