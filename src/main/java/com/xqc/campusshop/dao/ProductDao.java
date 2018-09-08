@@ -32,6 +32,13 @@ public interface ProductDao {
 	 * @return
 	 */
 	int insertProduct(Product product);
+	/**
+	 * 查询对应的商品总数，分页时使用
+	 * 
+	 * @param productCondition
+	 * @return
+	 */
+	int queryProductCount(@Param("productCondition") Product productCondition);
 	
 	
 
