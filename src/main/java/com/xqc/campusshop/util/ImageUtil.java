@@ -2,11 +2,18 @@ package com.xqc.campusshop.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import net.coobird.thumbnailator.Thumbnails;
 
+/**
+ * 图片工具类
+ * @author A Cang（xqc）
+ *
+ */
 public class ImageUtil {
 	
 	public static String generateThumbnail(CommonsMultipartFile thumbnail, String targetAddr) {
@@ -53,5 +60,33 @@ public class ImageUtil {
 		if (!dirPath.exists()) {
 			dirPath.mkdirs();
 		}
+	}
+	
+	/**
+	 * 生成图片
+	 * @param imgs
+	 * @param targetAddr
+	 * @return
+	 */
+	public static List<String> generateNormalImgs(List<CommonsMultipartFile> imgs, String targetAddr) {
+		int count = 0;
+		List<String> relativeAddrList = new ArrayList<String>();
+		if (imgs != null && imgs.size() > 0) {
+			makeDirPath(targetAddr);
+			for (CommonsMultipartFile img : imgs) {
+				String realFileName = FileUtil.getRandomFileName();
+				String extension = getFileExtension(img);
+				String relativeAddr = targetAddr + realFileName + count + extension;
+				File dest = new File(FileUtil.getImgBasePath() + relativeAddr);
+				count++;
+				try {
+					Thumbnails.of(img.getInputStream()).size(600, 300).outputQuality(0.5f).toFile(dest);
+				} catch (IOException e) {
+					throw new RuntimeException("创建图片失败：" + e.toString());
+				}
+				relativeAddrList.add(relativeAddr);
+			}
+		}
+		return relativeAddrList;
 	}
 }
