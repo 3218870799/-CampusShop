@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -22,6 +23,7 @@ import com.xqc.campusshop.entity.Product;
 import com.xqc.campusshop.entity.ProductCategory;
 import com.xqc.campusshop.entity.Shop;
 import com.xqc.campusshop.enums.ProductStateEnum;
+import com.xqc.campusshop.service.ProductCategoryService;
 import com.xqc.campusshop.service.ProductService;
 import com.xqc.campusshop.util.CodeUtil;
 import com.xqc.campusshop.util.HttpServletRequestUtil;
@@ -31,6 +33,9 @@ import com.xqc.campusshop.util.HttpServletRequestUtil;
 public class ProductManagementController {
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private ProductCategoryService productCategoryService;
 
 	private static final int IMAGEMAXCOUNT = 6;
 
@@ -155,6 +160,26 @@ public class ProductManagementController {
 		}
 		return productCondition;
 	}
+	
+	@RequestMapping(value = "/getproductbyid", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> getProductById(@RequestParam Long productId) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		if (productId > -1) {
+			Product product = productService.getProductById(productId);
+			List<ProductCategory> productCategoryList = productCategoryService
+					.getByShopId(product.getShop().getShopId());
+			modelMap.put("product", product);
+			modelMap.put("productCategoryList", productCategoryList);
+			modelMap.put("success", true);
+		} else {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", "empty pageSize or pageIndex or shopId");
+		}
+		return modelMap;
+	}
+	
+	
 	
 	
 
