@@ -37,5 +37,14 @@ public interface ProductCategoryService {
 	 */
 	ProductCategoryExecution deleteProductCategory(long productCategoryId,
 			long shopId) throws RuntimeException;
+	
+	
+	/**
+	 * 查询指定某个店铺下的所有商品类别信息	添加商品时显示查询
+	 * 
+	 * @param long shopId
+	 * @return List<ProductCategory>
+	 */
+	List<ProductCategory> getByShopId(long shopId);
 
 }

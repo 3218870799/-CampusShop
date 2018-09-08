@@ -89,4 +89,12 @@ public class ProductCategoryServiceImpl implements ProductCategoryService{
 		
 	}
 
+	/**
+	 * 查询指定店铺商品
+	 */
+	@Override
+	public List<ProductCategory> getByShopId(long shopId) {
+		return productCategoryDao.queryByShopId(shopId);
+	}
+
 }
