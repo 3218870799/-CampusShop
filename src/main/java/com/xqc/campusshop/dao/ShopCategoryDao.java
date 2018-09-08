@@ -19,5 +19,4 @@ public interface ShopCategoryDao {
 	 */
 	List<ShopCategory> queryShopCategory(@Param("shopCategoryCondition")
 	ShopCategory shopCategory);
-
 }
