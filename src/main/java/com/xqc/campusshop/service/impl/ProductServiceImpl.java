@@ -111,4 +111,9 @@ public class ProductServiceImpl implements ProductService {
 		pe.setCount(count);
 		return pe;
 	}
+
+	@Override
+	public Product getProductById(Long productId) {
+		return productDao.queryProductByProductId(productId);
+	}
 }

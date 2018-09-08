@@ -36,5 +36,12 @@ public interface ProductService {
 	 */
 	ProductExecution getProductList(Product productCondition, int pageIndex, int pageSize);
 
+	/**
+	 * 根据商品id查询商品
+	 * @param productId
+	 * @return
+	 */
+	Product getProductById(Long productId);
+
 
 }
