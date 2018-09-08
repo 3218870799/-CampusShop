@@ -162,7 +162,29 @@ public class ProductCategoryManagementController {
 		return modelMap;
 	}
 	
-	
+	/**
+	 * 获取产品类别列表
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/getproductcategorylistbyshopId", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> getProductCategoryListByShopId(
+			HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		Shop currentShop = (Shop) request.getSession().getAttribute(
+				"currentShop");
+		if ((currentShop != null) && (currentShop.getShopId() != null)) {
+			List<ProductCategory> productCategoryList = productCategoryService
+					.getByShopId(currentShop.getShopId());
+			modelMap.put("productCategoryList", productCategoryList);
+			modelMap.put("success", true);
+		} else {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", "empty pageSize or pageIndex or shopId");
+		}
+		return modelMap;
+	}
 	
 	
 	
