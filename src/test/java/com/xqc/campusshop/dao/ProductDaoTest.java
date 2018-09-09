@@ -19,6 +19,9 @@ public class ProductDaoTest extends BaseTest{
 	@Autowired
 	private ProductDao productDao;
 	
+	@Autowired
+	private ProductImgDao productImgDao;
+	
 	@Test
 	@Ignore
 	public void testInsertProduct() throws Exception {
@@ -44,12 +47,29 @@ public class ProductDaoTest extends BaseTest{
 	}
 	
 	@Test
+	@Ignore
 	public void testQueryProductList() throws Exception {
 		Product product = new Product();
 		List<Product> productList = productDao.queryProductList(product, 0, 3);
 		assertEquals(3, productList.size());
 	}
 	
+	@Test
+	public void testUpdateProduct() throws Exception {
+		Product product = new Product();
+		ProductCategory pc =new ProductCategory();
+		Shop shop = new Shop();
+		product.setProductId(5L);
+		shop.setShopId(29L);
+		pc.setProductCategoryId(5L);
+		
+		product.setShop(shop);
+		product.setProductCategory(pc);
+		
+		product.setProductName("第一个产品");
+		productDao.updateProduct(product);
+
+	}
 	
 	
 	
