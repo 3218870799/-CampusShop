@@ -24,6 +24,7 @@
 		<association property="shop" column="shop_id"
 			javaType="com.xqc.campusshop.entity.Shop">
 			<id column="shop_id" property="shopId" />
+			<result column="owner_id" property="ownerId"/>
 			<result column="shop_name" property="shopName" />
 			<result column="shop_desc" property="shopDesc" />
 			<result column="shop_addr" property="shopAddr" />
@@ -161,4 +162,25 @@
 		#{lastEditTime},#{enableStatus},#{productCategory.productCategoryId},
 		#{shop.shopId})
 	</insert>
+	<update id="updateProduct" parameterType="com.xqc.campusshop.entity.Product"
+		keyProperty="product_id" useGeneratedKeys="true">
+		UPDATE tb_product
+		<set>
+			<if test="productName != null">product_name=#{productName},</if>
+			<if test="productDesc != null">product_desc=#{productDesc},</if>
+			<if test="imgAddr != null">img_addr=#{imgAddr},</if>
+			<if test="normalPrice != null">normal_price=#{normalPrice},</if>
+			<if test="promotionPrice != null">promotion_price=#{promotionPrice},</if>
+			<if test="priority != null">priority=#{priority},</if>
+			<if test="lastEditTime != null">last_edit_time=#{lastEditTime},</if>
+			<if test="enableStatus != null">enable_status=#{enableStatus},</if>
+			<if
+				test="productCategory != null
+				 and productCategory.productCategoryId != null">
+				product_category_id=#{productCategory.productCategoryId}
+			</if>
+		</set>
+		WHERE product_id=#{productId}
+		AND shop_id=#{shop.shopId}
+	</update>
 </mapper>
