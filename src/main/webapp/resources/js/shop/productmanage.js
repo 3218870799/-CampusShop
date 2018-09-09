@@ -1,7 +1,9 @@
 $(function() {
 	var shopId = 1;
+	
 	var listUrl = '/CampusShop/shopadmin/listproductsbyshop?pageIndex=1&pageSize=9999&shopId='
 			+ shopId;
+	var deleteUrl = '/CampusShop/shopadmin/modifyproduct';
 
 	function getList() {
 		$.getJSON(listUrl, function(data) {
