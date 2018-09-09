@@ -43,7 +43,7 @@ public class ProductImgDaoTest extends BaseTest {
 	}
 	@Test
 	public void testDeleteProductImgByProductId() throws Exception {
-		long productId = 1;
+		long productId = 4;
 		productImgDao.deleteProductImgByProductId(productId);
 	}
 	
