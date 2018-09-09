@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.xqc.campusshop.dao.ProductCategoryDao;
+import com.xqc.campusshop.dao.ProductDao;
 import com.xqc.campusshop.dto.ProductCategoryExecution;
 import com.xqc.campusshop.entity.ProductCategory;
 import com.xqc.campusshop.enums.ProductCategoryStateEnum;
@@ -23,6 +24,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService{
 
 	@Autowired
 	private ProductCategoryDao productCategoryDao;
+	
+	@Autowired
+	private ProductDao productDao;
 	
 	/**
 	 *获取产品类别列表
@@ -69,9 +73,18 @@ public class ProductCategoryServiceImpl implements ProductCategoryService{
 	@Override
 	@Transactional
 	public ProductCategoryExecution deleteProductCategory(long productCategoryId, long shopId) throws RuntimeException {
-		
-		// TODO 如果商品类别下有商品，则将商品清空再删除
-		
+		//如果商品类别下有商品，则将商品清空再删除
+		//解除关联进行删除
+		try {
+			int effectedNum = productDao
+					.updateProductCategoryToNull(productCategoryId);
+			if (effectedNum < 0) {
+				throw new RuntimeException("商品类别更新失败");
+			}
+		} catch (Exception e) {
+			throw new RuntimeException("deleteProductCategory error: "
+					+ e.getMessage());
+		}
 		try {
 			int effectedNum = productCategoryDao.deleteProductCategory(
 					productCategoryId, shopId);

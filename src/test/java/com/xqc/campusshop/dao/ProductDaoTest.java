@@ -19,8 +19,6 @@ public class ProductDaoTest extends BaseTest{
 	@Autowired
 	private ProductDao productDao;
 	
-	@Autowired
-	private ProductImgDao productImgDao;
 	
 	@Test
 	@Ignore
@@ -55,6 +53,7 @@ public class ProductDaoTest extends BaseTest{
 	}
 	
 	@Test
+	@Ignore
 	public void testUpdateProduct() throws Exception {
 		Product product = new Product();
 		ProductCategory pc =new ProductCategory();
@@ -69,6 +68,12 @@ public class ProductDaoTest extends BaseTest{
 		product.setProductName("第一个产品");
 		productDao.updateProduct(product);
 
+	}
+	
+	@Test
+	public void testDeleteShopAuthMap() throws Exception {
+		int effectedNum = productDao.deleteProduct(4, 29);
+		assertEquals(1, effectedNum);
 	}
 	
 	
