@@ -22,6 +22,7 @@ import com.xqc.campusshop.util.PageCalculator;
 
 @Service
 public class ProductServiceImpl implements ProductService {
+	
 	@Autowired
 	private ProductDao productDao;
 	@Autowired
@@ -98,7 +99,7 @@ public class ProductServiceImpl implements ProductService {
 		product.setImgAddr(thumbnailAddr);
 	}
 
-	/**
+	/** 
 	 * 分页获得商品列表，显示到前台
 	 */
 	@Override
@@ -116,4 +117,66 @@ public class ProductServiceImpl implements ProductService {
 	public Product getProductById(Long productId) {
 		return productDao.queryProductByProductId(productId);
 	}
+
+	/**
+	 * 更新商品信息
+	 * 若缩略图有值，则处理缩略图
+	 * 若原先存在缩略图先删除再添加新图，之后获取缩略图相对路径并赋值给product
+	 * 若商品详情图列表有值，对商品详情图片列表进行同样的操作
+	 * 将tb_product_img下的商品原本的图片详情图记录全部清除
+	 * 更新tb_produc的信息
+	 */
+	@Override
+	@Transactional
+	public ProductExecution modifyProduct(Product product, CommonsMultipartFile thumbnail,
+			List<CommonsMultipartFile> productImgs) throws RuntimeException {
+		//空值判断
+		if (product != null && product.getShop() != null && product.getShop().getShopId() != null) {
+			//给商品设置上默认属性
+			product.setLastEditTime(new Date());
+			
+			
+			
+			
+			//若商品缩略图不为空且原有缩略图不为空则删除原有缩略图并添加
+			if (thumbnail != null) {
+				//先获取一遍原有信息，因为原有信息里有图片地址
+				Product tempProduct = productDao.queryProductByProductId(product.getProductId());
+				if (tempProduct.getImgAddr() != null) {
+					FileUtil.deleteFile(tempProduct.getImgAddr());
+				}
+				addThumbnail(product, thumbnail);
+			}
+			//如果有新存入的商品详情图，则将原本的先删除，并添加新的图片
+			if (productImgs!= null && productImgs.size() > 0) {
+				deleteProductImgs(product.getProductId());
+				addProductImgs(product, productImgs);
+			}
+			
+			
+			
+			try {
+				int effectedNum = productDao.updateProduct(product);
+				
+				if (effectedNum <= 0) {
+					throw new RuntimeException("更新商品信息失败");
+				}
+				
+				return new ProductExecution(ProductStateEnum.SUCCESS, product);
+			} catch (Exception e) {
+				throw new RuntimeException("更新商品信息失败:" + e.toString());
+			}
+		} else {
+			return new ProductExecution(ProductStateEnum.EMPTY);
+		}
+	}
+	
+	private void deleteProductImgs(long productId) {
+		List<ProductImg> productImgList = productImgDao.queryProductImgList(productId);
+		for (ProductImg productImg : productImgList) {
+			FileUtil.deleteFile(productImg.getImgAddr());
+		}
+		productImgDao.deleteProductImgByProductId(productId);
+	}
+	
 }

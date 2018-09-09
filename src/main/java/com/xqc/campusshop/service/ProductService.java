@@ -43,5 +43,16 @@ public interface ProductService {
 	 */
 	Product getProductById(Long productId);
 
+	/**
+	 * 修改商品
+	 * @param product
+	 * @param thumbnail
+	 * @param productImgs
+	 * @return
+	 * @throws RuntimeException
+	 */
+	ProductExecution modifyProduct(Product product, CommonsMultipartFile thumbnail,
+			List<CommonsMultipartFile> productImgs) throws RuntimeException;
+
 
 }
