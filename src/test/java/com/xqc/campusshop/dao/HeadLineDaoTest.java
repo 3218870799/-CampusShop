@@ -52,6 +52,7 @@ public class HeadLineDaoTest extends BaseTest {
 	}
 
 	@Test
+	@Ignore
 	public void testDeleteHeadLine() throws Exception {
 		long lineId = -1;
 		List<HeadLine> headLineList = headLineDao.queryHeadLine(new HeadLine());

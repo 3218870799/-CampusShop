@@ -13,7 +13,8 @@ import com.xqc.campusshop.entity.HeadLine;
  */
 public interface HeadLineDao {
 
-	/**根据传入的查询条件查询
+	/**
+	 * 根据传入的查询条件查询
 	 * 
 	 * @return
 	 */
@@ -21,20 +22,21 @@ public interface HeadLineDao {
 			@Param("headLineCondition") HeadLine headLineCondition);
 
 	/**
-	 * 
+	 * 根据头条Id查询头条信息
 	 * @param lineId
 	 * @return
 	 */
 	HeadLine queryHeadLineById(long lineId);
 
 	/**
-	 * 
+	 * 查询多个头条信息
 	 * @param lineIdList
 	 * @return
 	 */
 	List<HeadLine> queryHeadLineByIds(List<Long> lineIdList);
 
 	/**
+	 * 添加头条
 	 * 
 	 * @param headLine
 	 * @return
@@ -43,6 +45,7 @@ public interface HeadLineDao {
 
 	/**
 	 * 
+	 * 修改头条
 	 * @param headLine
 	 * @return
 	 */
@@ -50,13 +53,14 @@ public interface HeadLineDao {
 
 	/**
 	 * 
+	 * 删除头条
 	 * @param headLineId
 	 * @return
 	 */
 	int deleteHeadLine(long headLineId);
 
 	/**
-	 * 
+	 * 批量删除头条
 	 * @param lineIdList
 	 * @return
 	 */
