@@ -18,4 +18,15 @@ public class FrontendController {
 	private String index() {
 		return "frontend/index";
 	}
+	
+	@RequestMapping(value = "/shoplist", method = RequestMethod.GET)
+	private String showShopList() {
+		return "frontend/shoplist";
+	}
+	
+	@RequestMapping(value = "/shopdetail", method = RequestMethod.GET)
+	private String showShopDetail() {
+		return "frontend/shopdetail";
+	}
+	
 }
