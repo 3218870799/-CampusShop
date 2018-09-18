@@ -39,5 +39,5 @@ public interface AreaDao {
 	 * @param areaIdList
 	 * @return
 	 */
-	int batchDeleteArea(List<Integer> areaIdList);
+	int batchDeleteArea(List<Long> areaIdList);
 }

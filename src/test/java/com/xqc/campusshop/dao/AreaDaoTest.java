@@ -53,9 +53,9 @@ public class AreaDaoTest extends BaseTest {
 		
 		areaDao.deleteArea(3);
 		
-		List<Integer> areaIdList = new ArrayList<Integer>();
-		areaIdList.add(4);
-		areaIdList.add(5);
+		List<Long> areaIdList = new ArrayList<Long>();
+		areaIdList.add(4L);
+		areaIdList.add(5L);
 		int effectedNum = areaDao.batchDeleteArea(areaIdList);
 		System.out.println(effectedNum);
 	}
