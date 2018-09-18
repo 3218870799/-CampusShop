@@ -12,4 +12,32 @@ public interface AreaDao {
 	 * @return
 	 */
 	List<Area> queryArea();
+	
+	/**
+	 * 添加区域
+	 * @param area
+	 * @return
+	 */
+	int insertArea(Area area);
+
+	/**
+	 * 修改区域信息
+	 * @param area
+	 * @return
+	 */
+	int updateArea(Area area);
+
+	/**
+	 * 删除区域信息
+	 * @param areaId
+	 * @return
+	 */
+	int deleteArea(long areaId);
+
+	/**
+	 * 批量删除区域信息
+	 * @param areaIdList
+	 * @return
+	 */
+	int batchDeleteArea(List<Integer> areaIdList);
 }
