@@ -45,6 +45,13 @@ public class ShopAdminController {
 	private String productEdit() {
 		return "shop/productedit";
 	}
-	
+	@RequestMapping(value = "/awardmanage", method = RequestMethod.GET)
+	private String awardManage() {
+		return "shop/awardmanage";
+	}
+	@RequestMapping(value = "/awardedit", method = RequestMethod.GET)
+	private String awardEdit() {
+		return "shop/awardedit";
+	}
 
 }
