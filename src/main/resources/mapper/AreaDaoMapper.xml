@@ -7,6 +7,7 @@
 		SELECT
 		area_id,
 		area_name,
+		area_desc,
 		priority,
 		create_time,
 		last_edit_time
@@ -18,16 +19,17 @@
 	<insert id="insertArea" useGeneratedKeys="true" keyProperty="areaId"
 		keyColumn="area_id">
 		INSERT INTO
-		tb_area(area_name,priority,
+		tb_area(area_name,area_desc,priority,
 		create_time,last_edit_time)
 		VALUES
-		(#{areaName},#{priority},
+		(#{areaName},#{areaDesc},#{priority},
 		#{createTime},#{lastEditTime})
 	</insert>
 	<update id="updateArea" parameterType="com.xqc.campusshop.entity.Area">
 		update tb_area
 		<set>
 			<if test="areaName != null">area_name=#{areaName},</if>
+			<if test="areaDesc != null">area_desc=#{areaDesc},</if>
 			<if test="priority != null">priority=#{priority},</if>
 			<if test="lastEditTime != null">last_edit_time=#{lastEditTime}</if>
 		</set>
