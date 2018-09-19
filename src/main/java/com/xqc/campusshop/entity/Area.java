@@ -13,6 +13,8 @@ public class Area {
 	private Integer areaId;
 	//名称
 	private String areaName;
+	//区域描述
+	private String areaDesc;
 	//权重
 	private Integer priority;
 	//创建时间
@@ -30,6 +32,12 @@ public class Area {
 	}
 	public void setAreaName(String areaName) {
 		this.areaName = areaName;
+	}
+	public String getAreaDesc() {
+		return areaDesc;
+	}
+	public void setAreaDesc(String areaDesc) {
+		this.areaDesc = areaDesc;
 	}
 	public Integer getPriority() {
 		return priority;
