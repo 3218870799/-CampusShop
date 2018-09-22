@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xqc.campusshop.dao.UserShopMapDao">
+	<resultMap id="userShopResultMap" type="com.xqc.campusshop.entity.UserShopMap">
+		<id column="user_shop_id" property="userShopId" />
+		<result column="create_time" property="createTime" />
+		<result column="point" property="point" />
+		<association property="user" column="user_id"
+			javaType="com.xqc.campusshop.entity.PersonInfo">
+			<id column="user_id" property="userId" />
+			<result column="name" property="name" />
+		</association>
+		<association property="shop" column="shop_id"
+			javaType="com.xqc.campusshop.entity.Shop">
+			<id column="shop_id" property="shopId" />
+			<result column="shop_name" property="shopName" />
+		</association>
+	</resultMap>
+	<select id="queryUserShopMapList" resultMap="userShopResultMap">
+		SELECT
+		usm.user_shop_id,
+		usm.create_time,
+		usm.point,
+		p.user_id,
+		p.name,
+		s.shop_id,
+		s.shop_name
+		FROM
+		tb_user_shop_map usm,
+		tb_person_info p,
+		tb_shop s
+		<where>
+			usm.user_id = p.user_id
+			and
+			usm.shop_id = s.shop_id
+			<if test="userShopCondition.user!=null
+			and userShopCondition.user.userId!=null">
+				and user_id = #{userShopCondition.user.userId}
+			</if>
+			<if test="userShopCondition.shop!=null
+			and userShopCondition.shop.shopId!=null">
+				and shop_id = #{userShopCondition.shop.shopId}
+			</if>
+			<!-- 写like语句的时候 一般都会写成 like '% %' 在mybatis里面写就是应该是 like '%${name} %' 而不是 
+				'%#{name} %' ${name} 是不带单引号的，而#{name} 是带单引号的 -->
+			<if test="userShopCondition.user!=null
+			and userShopCondition.user.userName!=null">
+				and user_name like '%${userShopConditionu.user.userName}%'
+			</if>
+			<if test="userShopCondition.shop!=null
+			and userShopCondition.shop.shopName!=null">
+				and shop_name like
+				'%${userShopCondition.shop.shopName}%'
+			</if>
+			<if test="userShopCondition.createTime!=null">
+				and create_time > #{userShopCondition.createTime}
+			</if>
+		</where>
+		LIMIT #{rowIndex},#{pageSize};
+	</select>
+	<select id="queryUserShopMapCount" resultType="int">
+		SELECT
+		count(1)
+		FROM
+		tb_user_shop_map usm,
+		tb_person_info p,
+		tb_shop s
+		<where>
+			usm.user_id = p.user_id
+			and
+			usm.shop_id = s.shop_id
+			<if test="userShopCondition.user!=null
+			and userShopCondition.user.userId!=null">
+				and user_id = #{userShopCondition.user.userId}
+			</if>
+			<if test="userShopCondition.shop!=null
+			and userShopCondition.shop.shopId!=null">
+				and shop_id = #{userShopCondition.shop.shopId}
+			</if>
+			<!-- 写like语句的时候 一般都会写成 like '% %' 在mybatis里面写就是应该是 like '%${name} %' 而不是 
+				'%#{name} %' ${name} 是不带单引号的，而#{name} 是带单引号的 -->
+			<if test="userShopCondition.user!=null
+			and userShopCondition.user.userName!=null">
+				and user_name like '%${userShopConditionu.ser.userName}%'
+			</if>
+			<if test="userShopCondition.shop!=null
+			and userShopCondition.shop.shopName!=null">
+				and shop_name like
+				'%${userShopCondition.shop.shopName}%'
+			</if>
+			<if test="userShopCondition.createTime!=null">
+				and create_time > #{userShopCondition.createTime}
+			</if>
+		</where>
+	</select>
+	<select id="queryUserShopMap" resultType="com.xqc.campusshop.entity.UserShopMap"
+		parameterType="long">
+		SELECT
+		usm.user_shop_id,
+		usm.create_time,
+		usm.point,
+		p.user_id,
+		p.name,
+		s.shop_id,
+		s.shop_name
+		FROM
+		tb_user_shop_map usm,
+		tb_person_info p,
+		tb_shop s
+		WHERE
+		usm.user_id = p.user_id
+		AND
+		usm.shop_id = s.shop_id
+		AND
+		usm.user_id = #{userId}
+		AND
+		usm.shop_id = #{shopId}
+	</select>
+	<insert id="insertUserShopMap" parameterType="com.xqc.campusshop.entity.UserShopMap"
+		useGeneratedKeys="true" keyProperty="userShopId" keyColumn="user_shop_id">
+		INSERT
+		INTO
+		tb_user_shop_map(user_id,shop_id,
+		create_time,point)
+		VALUES
+		(#{user.userId},#{shop.shopId},
+		#{createTime},#{point})
+	</insert>
+	<update id="updateUserShopMapPoint" parameterType="com.xqc.campusshop.entity.UserShopMap"
+		keyProperty="user_shop_id" useGeneratedKeys="true">
+		UPDATE tb_user_shop_map
+		SET point=#{point}
+		where user_id = #{user.userId}
+		AND shop_id = #{shop.shopId}
+	</update>
+</mapper>
