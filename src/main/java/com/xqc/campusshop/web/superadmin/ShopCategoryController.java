@@ -197,7 +197,7 @@ public class ShopCategoryController {
 
 		} else {
 			modelMap.put("success", false);
-			modelMap.put("errMsg", "请输入店铺类别信息");
+			modelMap.put("errMsg", "请选择店铺类别");
 		}
 		return modelMap;
 	}
