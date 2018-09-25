@@ -34,6 +34,7 @@ public class ShopCategoryDaoTest extends BaseTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testQueryShopCategoryByIds(){
 		List<Long> shopCategoryIdList = new ArrayList<Long>();
 		shopCategoryIdList.add(33L);
@@ -69,6 +70,12 @@ public class ShopCategoryDaoTest extends BaseTest {
 		shopCategory.setLastEditTime(new Date());
 		
 		int eff = shopCategoryDao.updateShopCategory(shopCategory);
+		System.out.println(eff);
+	}
+	
+	@Test
+	public void testDeleteShopCategory(){
+		int eff = shopCategoryDao.deleteShopCategory(36L);
 		System.out.println(eff);
 	}
 

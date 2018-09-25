@@ -93,7 +93,8 @@
 		where shop_category_id=#{shopCategoryId}
 	</update>
 	<delete id="deleteShopCategory" parameterType="long">
-	DELECT
+	DELETE
+	FROM
 	tb_shop_category
 	WHERE
 	shop_category_id =
