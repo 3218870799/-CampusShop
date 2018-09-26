@@ -4,12 +4,13 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xqc.campusshop.dao.ProductSellDailyDao">
 	<resultMap type="com.xqc.campusshop.entity.ProductSellDaily" id="productSellDailyResultMap">
+		<id column="product_sell_daily_id" property="productSellDailyId"/>
 		<result column="create_time" property="createTime"/>
 		<result column="total" property="total"/>
 		<association property="product" column="product_id"
 			 javaType="com.xqc.campusshop.entity.Product">
 			 <id column="product_id" property="productId"/>
-			 <result column="product_name" property="product_name"/>
+			 <result column="product_name" property="productName"/>
 		</association>
 		<association property="shop" column="shop_id"
 			javaType="com.xqc.campusshop.entity.Shop">
@@ -19,6 +20,7 @@
 	</resultMap>
 	<select id="queryProductSellDailyList" resultMap="productSellDailyResultMap">
 		SELECT
+		psd.product_sell_daily_id,
 		 psd.create_time,
 		 psd.total,
 		 p.product_id,
@@ -66,7 +68,6 @@
 		 product_id,shop_id,create_time,count(product_id) AS total FROM
 		 tb_user_product_map
 		 WHERE date_format(create_time,'%Y-%m-%d')=
-		 date_sub(curdate(),interval 1
-		 day) GROUP BY product_id)
+		 date_sub(curdate(),interval 1 day) GROUP BY product_id)
 	</insert>
 </mapper>
