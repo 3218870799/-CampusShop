@@ -18,6 +18,13 @@ public class ProductSellDaily {
 	private Product product;
 	//店铺信息实体类
 	private Shop shop;
+	
+	public Long getProductSellDailyId() {
+		return productSellDailyId;
+	}
+	public void setProductSellDailyId(Long productSellDailyId) {
+		this.productSellDailyId = productSellDailyId;
+	}
 	public Date getCreateTime() {
 		return createTime;
 	}
