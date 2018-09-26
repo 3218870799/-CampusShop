@@ -8,6 +8,8 @@ import java.util.Date;
  *
  */
 public class ProductSellDaily {
+	//主键
+	private Long productSellDailyId;
 	//某一天的销量
 	private Date createTime;
 	//销量
