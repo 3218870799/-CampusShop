@@ -14,13 +14,13 @@ public class ProductSellDailyDaoTest extends BaseTest{
 	private ProductSellDailyDao productSellDailyDao;
 	
 	@Test
-	@Ignore
 	public void testInsertProductSellDaily(){
 		int eff = productSellDailyDao.insertProductSellDaily();
 		System.out.println(eff);
 	}
 	
 	@Test
+	@Ignore
 	public void testQueryProductSellDailyList(){
 		ProductSellDaily productSellDaily = new ProductSellDaily();
 		
