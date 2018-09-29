@@ -1,5 +1,6 @@
 package com.xqc.campusshop.service;
 
+import com.xqc.campusshop.dto.LocalAuthExecution;
 import com.xqc.campusshop.entity.LocalAuth;
 
 /**
@@ -15,5 +16,14 @@ public interface LocalAuthService {
 	 * @return
 	 */
 	LocalAuth getLocalAuthByUserNameAndPwd(String userName, String password);
+	
+	/**
+	 * 生成本平台账号
+	 * @param localAuth
+	 * @return
+	 * @throws RuntimeException
+	 */
+	LocalAuthExecution register(LocalAuth localAuth) throws RuntimeException;
+
 
 }
