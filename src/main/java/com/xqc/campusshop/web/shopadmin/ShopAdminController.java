@@ -53,5 +53,52 @@ public class ShopAdminController {
 	private String awardEdit() {
 		return "shop/awardedit";
 	}
+	@RequestMapping(value = "/shopauthmanagementpage", method = RequestMethod.GET)
+	private String shopAuthManagement() {
+		return "shop/shopauthmanage";
+	}
+	@RequestMapping(value = "/shopauthedit", method = RequestMethod.GET)
+	private String shopAuthEdit() {
+		return "shop/shopauthedit";
+	}
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	private String register() {
+		return "shop/register";
+	}
 
+	
+	@RequestMapping(value = "/ownerbind", method = RequestMethod.GET)
+	private String ownerBind() {
+		return "shop/ownerbind";
+	}
+
+	@RequestMapping(value = "/shopedit", method = RequestMethod.GET)
+	private String shopEdit() {
+		return "shop/shopedit";
+	}
+	@RequestMapping(value = "/productbuycheck", method = RequestMethod.GET)
+	private String productBuyCheck() {
+		return "shop/productbuycheck";
+	}
+
+	@RequestMapping(value = "/awarddelivercheck", method = RequestMethod.GET)
+	private String awardDeliverCheck() {
+		return "shop/awarddelivercheck";
+	}
+
+	@RequestMapping(value = "/usershopcheck", method = RequestMethod.GET)
+	private String userShopCheck() {
+		return "shop/usershopcheck";
+	}
+	@RequestMapping(value = "/customermanage", method = RequestMethod.GET)
+	private String customerManage() {
+		return "shop/customermanage";
+	}
+	@RequestMapping(value = "/loginshoppage",method = RequestMethod.GET)
+	private String loginShop(){
+		return "shop/loginshop";
+	}
+	
+	
+	
 }
