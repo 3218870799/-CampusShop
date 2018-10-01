@@ -19,14 +19,22 @@ import com.xqc.campusshop.entity.PersonInfo;
 import com.xqc.campusshop.enums.PersonInfoStateEnum;
 import com.xqc.campusshop.service.PersonInfoService;
 import com.xqc.campusshop.util.HttpServletRequestUtil;
-
-
+/**
+ * 用户信息管理Controller
+ * 
+ * @author A Cang（xqc）
+ *
+ */
 @Controller
 @RequestMapping("/superadmin")
 public class PersonInfoController {
 	@Autowired
 	private PersonInfoService personInfoService;
-
+	/**
+	 * 列出用户信息
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/listpersonInfos", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> listPersonInfos(HttpServletRequest request) {
@@ -75,6 +83,11 @@ public class PersonInfoController {
 		}
 	}
 
+	/**
+	 * 修改个人信息
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/modifypersonInfo", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> modifyPersonInfo(HttpServletRequest request) {

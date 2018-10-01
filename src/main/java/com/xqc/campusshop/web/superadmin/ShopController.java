@@ -24,7 +24,12 @@ import com.xqc.campusshop.enums.ShopStateEnum;
 import com.xqc.campusshop.service.ShopCategoryService;
 import com.xqc.campusshop.service.ShopService;
 import com.xqc.campusshop.util.HttpServletRequestUtil;
-
+/**
+ * 店铺管理Controller
+ * 
+ * @author A Cang（xqc）
+ *
+ */
 @Controller
 @RequestMapping("/superadmin")
 public class ShopController {
@@ -33,6 +38,11 @@ public class ShopController {
 	@Autowired
 	private ShopCategoryService shopCategoryService;
 
+	/**
+	 * 列出商品列表
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/listshops", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> listShops(HttpServletRequest request) {
@@ -99,6 +109,11 @@ public class ShopController {
 		}
 	}
 
+	/**
+	 * 通过id查找店铺
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/searchshopbyid", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> searchShopById(HttpServletRequest request) {

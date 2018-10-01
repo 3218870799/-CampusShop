@@ -17,6 +17,7 @@ import com.xqc.campusshop.util.HttpServletRequestUtil;
 import com.xqc.campusshop.util.MD5;
 /**
  * 管理员本地账号登陆
+ * 
  * @author A Cang（xqc）
  *
  */

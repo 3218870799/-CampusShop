@@ -25,14 +25,22 @@ import com.xqc.campusshop.entity.ShopCategory;
 import com.xqc.campusshop.enums.ShopCategoryStateEnum;
 import com.xqc.campusshop.service.ShopCategoryService;
 import com.xqc.campusshop.util.HttpServletRequestUtil;
-
-
+/**
+ * 店铺类别管理Controller
+ * 
+ * @author A Cang（xqc）
+ *
+ */
 @Controller
 @RequestMapping("/superadmin")
 public class ShopCategoryController {
 	@Autowired
 	private ShopCategoryService shopCategoryService;
 
+	/**
+	 * 列出店铺类别列表
+	 * @return
+	 */
 	@RequestMapping(value = "/listshopcategorys", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> listShopCategorys() {
@@ -50,6 +58,10 @@ public class ShopCategoryController {
 		return modelMap;
 	}
 
+	/**
+	 * 列出一级列表
+	 * @return
+	 */
 	@RequestMapping(value = "/list1stlevelshopcategorys", method = RequestMethod.POST)
 	@ResponseBody
 	private Result<List<ShopCategory>> list1stLevelShopCategorys() {
@@ -66,6 +78,11 @@ public class ShopCategoryController {
 		return new Result<List<ShopCategory>>(true, list);
 	}
 
+	/**
+	 * 添加店铺类别
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/addshopcategory", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> addShopCategory(HttpServletRequest request) {
@@ -119,6 +136,11 @@ public class ShopCategoryController {
 		return modelMap;
 	}
 
+	/**
+	 * 修改店铺类别信息
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/modifyshopcategory", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> modifyShopCategory(HttpServletRequest request) {
@@ -175,6 +197,11 @@ public class ShopCategoryController {
 		return modelMap;
 	}
 
+	/**
+	 * 删除店铺类别
+	 * @param shopCategoryId
+	 * @return
+	 */
 	@RequestMapping(value = "/removeshopcategory", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> removeShopCategory(Long shopCategoryId) {
@@ -202,6 +229,11 @@ public class ShopCategoryController {
 		return modelMap;
 	}
 
+	/**
+	 * 批量删除店铺类别
+	 * @param shopCategoryIdListStr
+	 * @return
+	 */
 	@RequestMapping(value = "/removeshopcategories", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> removeShopCategories(

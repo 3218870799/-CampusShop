@@ -24,14 +24,23 @@ import com.xqc.campusshop.entity.HeadLine;
 import com.xqc.campusshop.enums.HeadLineStateEnum;
 import com.xqc.campusshop.service.HeadLineService;
 import com.xqc.campusshop.util.HttpServletRequestUtil;
-
-
+/**
+ * 头条管理Controller
+ * 
+ * @author A Cang（xqc）
+ *
+ */
 @Controller
 @RequestMapping("/superadmin")
 public class HeadLineController {
 	@Autowired
 	private HeadLineService headLineService;
 
+	/**
+	 * 列出所有头条列表
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/listheadlines", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> listHeadLines(HttpServletRequest request) {
@@ -55,6 +64,11 @@ public class HeadLineController {
 		return modelMap;
 	}
 
+	/**
+	 * 添加头条
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/addheadline", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> addHeadLine(HttpServletRequest request) {
@@ -102,6 +116,11 @@ public class HeadLineController {
 		return modelMap;
 	}
 
+	/**
+	 * 修改头条信息
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/modifyheadline", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> modifyHeadLine(HttpServletRequest request) {
@@ -149,6 +168,11 @@ public class HeadLineController {
 		return modelMap;
 	}
 
+	/**
+	 * 删除头条信息
+	 * @param headLineId
+	 * @return
+	 */
 	@RequestMapping(value = "/removeheadline", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> removeHeadLine(Long headLineId) {
@@ -176,11 +200,17 @@ public class HeadLineController {
 		return modelMap;
 	}
 
+	/**
+	 * 批量删除头条信息
+	 * @param headLineIdListStr
+	 * @return
+	 */
 	@RequestMapping(value = "/removeheadlines", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> removeHeadLines(String headLineIdListStr) {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		ObjectMapper mapper = new ObjectMapper();
+		
 		JavaType javaType = mapper.getTypeFactory().constructParametricType(
 				ArrayList.class, Long.class);
 		List<Long> headLineIdList = null;

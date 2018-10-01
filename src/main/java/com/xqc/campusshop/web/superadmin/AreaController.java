@@ -22,7 +22,12 @@ import com.xqc.campusshop.dto.AreaExecution;
 import com.xqc.campusshop.entity.Area;
 import com.xqc.campusshop.enums.AreaStateEnum;
 import com.xqc.campusshop.service.AreaService;
-
+/**
+ * 超级管理员区域管理Controller
+ * 
+ * @author A Cang（xqc）
+ *
+ */
 @Controller
 @RequestMapping("/superadmin")
 public class AreaController {
@@ -30,6 +35,9 @@ public class AreaController {
 	Logger logger = LoggerFactory.getLogger(AreaController.class);
 
 	
+	/**
+	 * 列出区域列表
+	 */
 	@Autowired
 	private AreaService areaService;
 	@RequestMapping(value = "/listarea",method=RequestMethod.GET)
@@ -56,15 +64,16 @@ public class AreaController {
 		long endTime = System.currentTimeMillis();
 		logger.debug("costTime:[{}ms]",endTime-startTime);
 		logger.info("=====end====");
-		
-		
-		
-		
+
 		return modelMap;
-		
 	}
 	
-	
+	/**
+	 * 添加区域
+	 * @param areaStr
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/addarea", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> addArea(String areaStr,
@@ -73,6 +82,7 @@ public class AreaController {
 		ObjectMapper mapper = new ObjectMapper();
 		Area area = null;
 		try {
+			//转换
 			area = mapper.readValue(areaStr, Area.class);
 			// decode可能有中文的地方
 			area.setAreaName((area.getAreaName() == null) ? null : URLDecoder
@@ -105,8 +115,12 @@ public class AreaController {
 		}
 		return modelMap;
 	}
-	
-	
+	/**
+	 * 修改区域信息
+	 * @param areaStr
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/modifyarea", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> modifyArea(String areaStr,
@@ -115,6 +129,7 @@ public class AreaController {
 		ObjectMapper mapper = new ObjectMapper();
 		Area area = null;
 		try {
+			//转换
 			area = mapper.readValue(areaStr, Area.class);
 			area.setAreaName((area.getAreaName() == null) ? null : URLDecoder
 					.decode(area.getAreaName(), "UTF-8"));
@@ -125,6 +140,7 @@ public class AreaController {
 			modelMap.put("errMsg", e.toString());
 			return modelMap;
 		}
+		//空值判断
 		if (area != null && area.getAreaId() != null) {
 			try {
 				AreaExecution ae = areaService.modifyArea(area);
@@ -146,13 +162,18 @@ public class AreaController {
 		}
 		return modelMap;
 	}
-	
+	/**
+	 * 删除区域
+	 * @param areaId
+	 * @return
+	 */
 	@RequestMapping(value = "/removearea", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> removeArea(Long areaId) {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		if (areaId != null && areaId > 0) {
 			try {
+				//删除区域
 				AreaExecution ae = areaService.removeArea(areaId);
 				if (ae.getState() == AreaStateEnum.SUCCESS.getState()) {
 					modelMap.put("success", true);
@@ -172,7 +193,11 @@ public class AreaController {
 		}
 		return modelMap;
 	}
-	
+	/**
+	 * 批量删除区域
+	 * @param areaIdListStr
+	 * @return
+	 */
 	@RequestMapping(value = "/removeareas", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> removeAreas(String areaIdListStr) {
@@ -210,12 +235,4 @@ public class AreaController {
 		}
 		return modelMap;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 }
