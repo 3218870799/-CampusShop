@@ -100,7 +100,7 @@
         }
     });
 
-    // $('#new').click(function () {
-    //     window.location.href = '/CampusShop/shopadmin/shopauthedit';
-    // });
+    $('#new').click(function () {
+         window.location.href = '/CampusShop/shopadmin/shopauthedit';
+    });
 });
