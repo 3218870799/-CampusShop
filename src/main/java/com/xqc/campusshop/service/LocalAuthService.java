@@ -24,6 +24,27 @@ public interface LocalAuthService {
 	 * @throws RuntimeException
 	 */
 	LocalAuthExecution register(LocalAuth localAuth) throws RuntimeException;
+	
+	/**
+	 * 通过UserId获取用户信息
+	 * @param userId
+	 * @return
+	 */
+	LocalAuth getLocalAuthByUserId(long userId);
 
+	/**
+	 * 修改本地账号信息
+	 * @param localAuthId
+	 * @param userName
+	 * @param password
+	 * @param newPassword
+	 * @param lastEditTime
+	 * @return
+	 */
+	LocalAuthExecution modifyLocalAuth(Long userId, String userName,
+			String password, String newPassword);
+	
+
+	
 
 }
