@@ -1,9 +1,11 @@
 package com.xqc.campusshop.web.shopadmin;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xqc.campusshop.dto.LocalAuthExecution;
 import com.xqc.campusshop.entity.LocalAuth;
+import com.xqc.campusshop.entity.PersonInfo;
 import com.xqc.campusshop.enums.LocalAuthStateEnum;
 import com.xqc.campusshop.service.LocalAuthService;
 import com.xqc.campusshop.util.CodeUtil;
@@ -136,6 +139,79 @@ public class OwnerAuthController {
 		}
 		return modelMap;
 	}
+
+	/**
+	 * 修改密码
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/changelocalpwd", method = RequestMethod.POST)
+	@ResponseBody
+	private Map<String, Object> changeLocalPwd(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		if (!CodeUtil.checkVerifyCode(request)) {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", "输入了错误的验证码");
+			return modelMap;
+		}
+		//获取
+		String userName = HttpServletRequestUtil.getString(request, "userName");
+		String password = HttpServletRequestUtil.getString(request, "password");
+		String newPassword = HttpServletRequestUtil.getString(request,
+				"newPassword");
+		PersonInfo user = (PersonInfo) request.getSession()
+				.getAttribute("user");
+		long employeeId = 0;
+		if (user != null && user.getUserId() != null) {
+			employeeId = user.getUserId();
+		} else {
+			employeeId = 1;
+		}
+		//空值判断且新密码不等于旧密码
+		if (userName != null && password != null && newPassword != null
+				&& employeeId > 0 && !password.equals(newPassword)) {
+			try {
+				LocalAuthExecution le = localAuthService.modifyLocalAuth(
+						employeeId, userName, password, newPassword);
+				if (le.getState() == LocalAuthStateEnum.SUCCESS.getState()) {
+					modelMap.put("success", true);
+				} else {
+					modelMap.put("success", false);
+					modelMap.put("errMsg", le.getStateInfo());
+				}
+			} catch (RuntimeException e) {
+				modelMap.put("success", false);
+				modelMap.put("errMsg", e.toString());
+				return modelMap;
+			}
+
+		} else {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", "请输入密码");
+		}
+		return modelMap;
+	}
+
+	/**
+	 * 退出
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	@ResponseBody
+	private Map<String, Object> ownerLogoutCheck(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		//将session置空重新返回
+		request.getSession().setAttribute("user", null);
+		request.getSession().setAttribute("shopList", null);
+		request.getSession().setAttribute("currentShop", null);
+		modelMap.put("success", true);
+		return modelMap;
+	}
+	
 
 
 }
