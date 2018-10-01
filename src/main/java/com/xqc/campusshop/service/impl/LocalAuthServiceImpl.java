@@ -15,6 +15,11 @@ import com.xqc.campusshop.enums.LocalAuthStateEnum;
 import com.xqc.campusshop.service.LocalAuthService;
 import com.xqc.campusshop.util.MD5;
 
+/**
+ * 本地账号管理Service实现
+ * @author A Cang（xqc）
+ *
+ */
 @Service
 public class LocalAuthServiceImpl implements LocalAuthService {
 
@@ -79,6 +84,39 @@ public class LocalAuthServiceImpl implements LocalAuthService {
 					+ e.getMessage());
 		}
 	}
+	/**
+	 * 修改账号密码
+	 */
+	@Override
+	@Transactional
+	public LocalAuthExecution modifyLocalAuth(Long userId, String userName,
+			String password, String newPassword) {
+		if (userId != null && userName != null && password != null
+				&& newPassword != null && !password.equals(newPassword)) {
+			try {
+				int effectedNum = localAuthDao.updateLocalAuth(userId,
+						userName, MD5.getMd5(password),
+						MD5.getMd5(newPassword), new Date());
+				if (effectedNum <= 0) {
+					throw new RuntimeException("更新密码失败");
+				}
+				return new LocalAuthExecution(LocalAuthStateEnum.SUCCESS);
+			} catch (Exception e) {
+				throw new RuntimeException("更新密码失败:" + e.toString());
+			}
+		} else {
+			return new LocalAuthExecution(LocalAuthStateEnum.NULL_AUTH_INFO);
+		}
+	}
+	
+	
+	@Override
+	public LocalAuth getLocalAuthByUserId(long userId) {
+		return localAuthDao.queryLocalByUserId(userId);
+	}
+
+
+
 	
 
 }
